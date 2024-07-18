@@ -10,47 +10,45 @@ public class StringCalculator
     {
        return 0;
     }
-    var delimiters = GetDelimiters(ref numbers);
-    var numArray = SplitNumbers(numbers, delimiters);
-    ValidateNumbers(numArray);
+       var delimiters = new List<string> { ",", "\n" };
+        numbers = ExtractCustomDelimiter(numbers, delimiters);
+
+        var numArray = SplitNumbers(numbers, delimiters.ToArray());
+        ValidateNumbers(numArray);
 
    return SumNumbers(numArray);
   }
 
-private string[] GetDelimiters(ref string numbers)
+private string ExtractCustomDelimiter(string numbers, List<string> delimiters)
     {
-        var delimiters = new List<string> { ",", "\n" };
         if (numbers.StartsWith("//"))
         {
-            var match = Regex.Match(numbers, "//(.+)\n(.*)");
-            delimiters.Add(match.Groups[1].Value);
-            numbers = match.Groups[2].Value;
-        }
-        return delimiters.ToArray();
-    }
-  
-  private List<int> SplitNumbers(string numbers)
-    {
-        var splitNumbers = Regex.Split(numbers, string.Join("|", delimiters));
-        var numList = new List<int>();
-        foreach (var num in splitNumbers)
-        {
-            numList.Add(int.Parse(num));
-        }
-        return numList;
-    }
-  
- private void ValidateNumbers(List<int> numbers)
-    {
-        var negatives = new List<int>();
-        foreach (var num in numbers)
-        {
-            if (num < 0)
+            var endOfDelimiterIndex = numbers.IndexOf('\n');
+            var delimiterSection = numbers.Substring(2, endOfDelimiterIndex - 2);
+            
+            // Custom delimiter can be defined as [delimiter]
+            if (delimiterSection.StartsWith("[") && delimiterSection.EndsWith("]"))
             {
-                negatives.Add(num);
+                delimiterSection = delimiterSection.Substring(1, delimiterSection.Length - 2);
             }
+
+            delimiters.Add(delimiterSection);
+            numbers = numbers.Substring(endOfDelimiterIndex + 1);
         }
-        if (negatives.Count > 0)
+
+        return numbers;
+    }
+
+    private List<int> SplitNumbers(string numbers, string[] delimiters)
+    {
+        var splitNumbers = numbers.Split(delimiters, StringSplitOptions.None);
+        return splitNumbers.Select(int.Parse).ToList();
+    }
+
+    private void ValidateNumbers(List<int> numbers)
+    {
+        var negatives = numbers.Where(num => num < 0).ToList();
+        if (negatives.Any())
         {
             throw new ArgumentException($"negatives not allowed: {string.Join(", ", negatives)}");
         }
