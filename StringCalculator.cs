@@ -42,7 +42,7 @@ public class StringCalculator
 
         if (negatives.Count > 0)
         {
-            throw new ArgumentException($"negatives not allowed: {string.Join(", ", negatives)}");
+            return -1;
         }
     }
   private int SumNumbers(List<int> numbers)
