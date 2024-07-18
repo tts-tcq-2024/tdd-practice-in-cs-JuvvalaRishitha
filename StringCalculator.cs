@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class StringCalculator
 {
@@ -9,6 +10,33 @@ public class StringCalculator
     {
        return 0;
     }
-    return 0;
+   var numArray = SplitNumbers(numbers);
+   //ValidateNumbers(numArray);
+
+   return SumNumbers(numArray);
   }
+
+
+  private List<int> SplitNumbers(string numbers)
+    {
+        var splitNumbers = numbers.Split(',');
+        var numList = new List<int>();
+        foreach (var num in splitNumbers)
+        {
+            numList.Add(int.Parse(num));
+        }
+        return numList;
+    }
+  
+  }
+private int SumNumbers(List<int> numbers)
+    {
+        var sum = 0;
+        foreach (var num in numbers)
+        {
+            sum += num;
+        }
+        return sum;
+    }
+  
 }
