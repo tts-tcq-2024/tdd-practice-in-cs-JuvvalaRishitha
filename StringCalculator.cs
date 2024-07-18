@@ -51,7 +51,10 @@ public class StringCalculator
         var sum = 0;
         foreach (var num in numbers)
         {
-            sum += num;
+            if (num <= 1000)
+            {
+                sum += num;
+            }
         }
         return sum;
   }
