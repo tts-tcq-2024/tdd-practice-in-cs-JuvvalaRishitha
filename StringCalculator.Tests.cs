@@ -41,7 +41,7 @@ public class StringCalculatorAddTests
     [Fact]
     public void ExpectExceptionForNegativeNumbers()
     {
-        Assert.Throws<Exception>(() =>
+        var ex = Assert.Throws<ArgumentException>(() =>
         {
             string input = "-1,2";
             StringCalculator objUnderTest = new StringCalculator();
