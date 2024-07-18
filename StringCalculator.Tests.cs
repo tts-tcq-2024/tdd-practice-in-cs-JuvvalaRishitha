@@ -49,7 +49,7 @@ public class StringCalculatorAddTests
         });
         Assert.Equal("negatives not allowed: -1", ex.Message);
     }
-/*
+
   [Fact]
     public void ExpectSumWithNewlineDelimiter()
     {
@@ -60,7 +60,7 @@ public class StringCalculatorAddTests
 
        Assert.Equal(expectedResult, result);
     }
-
+/*
   [Fact]
     public void IgnoreNumbersGreaterThan1000()
     {
