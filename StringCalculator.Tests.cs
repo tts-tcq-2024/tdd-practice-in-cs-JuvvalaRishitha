@@ -37,7 +37,7 @@ public class StringCalculatorAddTests
 
        Assert.Equal(expectedResult, result);
     }
-/*
+
     [Fact]
     public void ExpectExceptionForNegativeNumbers()
     {
@@ -48,7 +48,7 @@ public class StringCalculatorAddTests
             objUnderTest.Add(input);
         });
     }
-
+/*
   [Fact]
     public void ExpectSumWithNewlineDelimiter()
     {
