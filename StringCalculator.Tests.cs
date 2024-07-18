@@ -47,6 +47,7 @@ public class StringCalculatorAddTests
             StringCalculator objUnderTest = new StringCalculator();
             objUnderTest.Add(input);
         });
+        Assert.Equal("negatives not allowed: -1", ex.Message);
     }
 /*
   [Fact]
