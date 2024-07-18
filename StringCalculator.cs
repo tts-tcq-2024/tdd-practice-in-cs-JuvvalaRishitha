@@ -11,7 +11,7 @@ public class StringCalculator
        return 0;
     }
    var numArray = SplitNumbers(numbers);
-   //ValidateNumbers(numArray);
+   ValidateNumbers(numArray);
 
    return SumNumbers(numArray);
   }
@@ -28,7 +28,23 @@ public class StringCalculator
         return numList;
     }
   
-  
+  private void ValidateNumbers(List<int> numbers)
+    {
+        var negatives = new List<int>();
+
+        foreach (var num in numbers)
+        {
+            if (num < 0)
+            {
+                negatives.Add(num);
+            }
+        }
+
+        if (negatives.Count > 0)
+        {
+            throw new ArgumentException($"negatives not allowed: {string.Join(", ", negatives)}");
+        }
+    }
   private int SumNumbers(List<int> numbers)
   {
         var sum = 0;
