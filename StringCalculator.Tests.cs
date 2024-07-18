@@ -60,7 +60,7 @@ public class StringCalculatorAddTests
 
        Assert.Equal(expectedResult, result);
     }
-/*
+
   [Fact]
     public void IgnoreNumbersGreaterThan1000()
     {
@@ -71,7 +71,7 @@ public class StringCalculatorAddTests
 
        Assert.Equal(expectedResult, result);
     }
-
+/*
     [Fact]
     public void ExpectSumWithCustomDelimiter()
     {
