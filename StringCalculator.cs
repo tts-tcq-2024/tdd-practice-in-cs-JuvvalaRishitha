@@ -19,12 +19,15 @@ public class StringCalculator
 
   private List<int> SplitNumbers(string numbers)
     {
-        var splitNumbers = numbers.Split(',');
         var numList = new List<int>();
+        var delimiters = new[] { ',', '\n' };
+        var splitNumbers = numbers.Split(delimiters, StringSplitOptions.None);
+
         foreach (var num in splitNumbers)
         {
             numList.Add(int.Parse(num));
         }
+
         return numList;
     }
   
