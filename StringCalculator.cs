@@ -19,26 +19,31 @@ public class StringCalculator
    return SumNumbers(numArray);
   }
 
-private string ExtractCustomDelimiter(string numbers, List<string> delimiters)
+ private string ExtractCustomDelimiter(string numbers, List<string> delimiters)
     {
         if (numbers.StartsWith("//"))
         {
             var endOfDelimiterIndex = numbers.IndexOf('\n');
             var delimiterSection = numbers.Substring(2, endOfDelimiterIndex - 2);
-            
-            // Custom delimiter can be defined as [delimiter]
-            if (delimiterSection.StartsWith("[") && delimiterSection.EndsWith("]"))
-            {
-                delimiterSection = delimiterSection.Substring(1, delimiterSection.Length - 2);
-            }
 
-            delimiters.Add(delimiterSection);
+            AddCustomDelimiters(delimiterSection, delimiters);
             numbers = numbers.Substring(endOfDelimiterIndex + 1);
         }
 
         return numbers;
     }
 
+    private void AddCustomDelimiters(string delimiterSection, List<string> delimiters)
+    {
+        if (delimiterSection.StartsWith("[") && delimiterSection.EndsWith("]"))
+        {
+            delimiters.Add(delimiterSection.Substring(1, delimiterSection.Length - 2));
+        }
+        else
+        {
+            delimiters.Add(delimiterSection);
+        }
+    }
     private List<int> SplitNumbers(string numbers, string[] delimiters)
     {
         var splitNumbers = numbers.Split(delimiters, StringSplitOptions.None);
