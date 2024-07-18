@@ -10,24 +10,33 @@ public class StringCalculator
     {
        return 0;
     }
-   var numArray = SplitNumbers(numbers);
-  ValidateNumbers(numArray);
+    var delimiters = GetDelimiters(ref numbers);
+    var numArray = SplitNumbers(numbers, delimiters);
+    ValidateNumbers(numArray);
 
    return SumNumbers(numArray);
   }
 
-
+private string[] GetDelimiters(ref string numbers)
+    {
+        var delimiters = new List<string> { ",", "\n" };
+        if (numbers.StartsWith("//"))
+        {
+            var match = Regex.Match(numbers, "//(.+)\n(.*)");
+            delimiters.Add(match.Groups[1].Value);
+            numbers = match.Groups[2].Value;
+        }
+        return delimiters.ToArray();
+    }
+  
   private List<int> SplitNumbers(string numbers)
     {
+        var splitNumbers = Regex.Split(numbers, string.Join("|", delimiters));
         var numList = new List<int>();
-        var delimiters = new[] { ',', '\n' };
-        var splitNumbers = numbers.Split(delimiters, StringSplitOptions.None);
-
         foreach (var num in splitNumbers)
         {
             numList.Add(int.Parse(num));
         }
-
         return numList;
     }
   
